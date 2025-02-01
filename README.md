@@ -173,3 +173,6 @@ By following these best practices, you can improve the readability, maintainabil
        console.error('Database connection error:', error);
    }
    ```
+## Global Error-Handling
+- Todo Later! Need to fix err
+

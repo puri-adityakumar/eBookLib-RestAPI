@@ -4,10 +4,24 @@
 
 
 import express from 'express';
+import globalErrorHandler from './middleware/globalErrorHandler';
+import createHttpError from 'http-errors';
 
 const app = express();
 
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
+
+
+
+
+
+
+
+
+
+// global error handler - TODO: FIX ERROR LATER
+// app.use(globalErrorHandler);
+
 export default app; 
