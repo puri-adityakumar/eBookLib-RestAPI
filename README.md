@@ -22,6 +22,14 @@ To set up the Node.js project, follow these steps:
 3. Create a `tsconfig.json` file for TypeScript configuration:
     ```bash
     npx tsc --init
+4. In `package.json`, add the following code to the `scripts` section to run the server:
+    ```json
+     "scripts": {
+       "dev": "nodemon server.ts"
+    }
     ```
+Note: You need to create a file `server.ts` and then run cmd `npm run dev`
+
+
 
 
