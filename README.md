@@ -143,6 +143,33 @@ By following these best practices, you can improve the readability, maintainabil
    npm run dev
    ```
 
-```
+## Database Connection
 
-```
+1. Ensure you have a `.env` file with your MongoDB URI:
+   ```
+   MONGODB_URI=mongodb+srv://...
+   ```
+2. Install the Mongoose type definitions:
+   ```bash
+   npm install mongoose
+   npm install -D @types/mongoose
+   ```
+3. Update the `config.ts` file to reference `databaseUrl`:
+   ```typescript
+   // filepath: /src/config/config.ts
+   // ...existing code...
+   const _credentials = {
+       port: process.env.PORT,
+       databaseUrl: process.env.MONGODB_URI,
+   };
+   // ...existing code...
+   ```
+4. Use `credentials.databaseUrl` wherever you need the connection string in your code, typically in a try/catch block for robust error handling:
+   ```typescript
+   // Example of try/catch error handling:
+   try {
+       // ...database connection logic...
+   } catch (error) {
+       console.error('Database connection error:', error);
+   }
+   ```
