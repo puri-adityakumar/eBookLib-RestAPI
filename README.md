@@ -31,5 +31,5 @@ To set up the Node.js project, follow these steps:
 Note: You need to create a file `server.ts` and then run cmd `npm run dev`
 
 
-
+## Best practices
 
