@@ -22,7 +22,6 @@ app.use("/api/users", userRouter);
 
 
 
-
 // global error handler - TODO: FIX ERROR LATER
 // app.use(globalErrorHandler);
 
