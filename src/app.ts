@@ -8,6 +8,7 @@ import userRouter from './users/userRouter';
 // import globalErrorHandler from './middleware/globalErrorHandler';
 
 const app = express();
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hello World');
