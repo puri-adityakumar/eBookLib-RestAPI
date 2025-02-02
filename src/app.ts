@@ -4,8 +4,8 @@
 
 
 import express from 'express';
-import globalErrorHandler from './middleware/globalErrorHandler';
-import createHttpError from 'http-errors';
+import userRouter from './users/userRouter';
+// import globalErrorHandler from './middleware/globalErrorHandler';
 
 const app = express();
 
@@ -13,6 +13,7 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
+app.use("/api/users", userRouter);
 
 
 
