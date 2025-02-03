@@ -6,6 +6,7 @@
 import express from 'express';
 import userRouter from './users/userRouter';
 import bookRouter from './books/bookRouter';
+
 // import globalErrorHandler from './middleware/globalErrorHandler';
 
 
@@ -22,8 +23,11 @@ app.use("/api/books", bookRouter);
 
 
 
-// global error handler - TODO: FIX ERROR LATER
+
+// global error handler : Todo - implement this
 // app.use(globalErrorHandler);
+
+
 
 
 
