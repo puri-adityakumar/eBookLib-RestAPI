@@ -7,7 +7,7 @@ import fs from 'node:fs'
 import { AuthRequest } from '../middleware/authenticate';
 
 const addBook = async( req: Request, res: Response, next: NextFunction ) => {
-    const { title, author, description, genre, uploader } = req.body;
+    const { title, author, description, genre } = req.body;
 
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
     const coverImageMimeType = files.coverImage[0].mimetype.split('/').at(-1);
@@ -160,4 +160,20 @@ const listBooks = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export { addBook, updateBook, listBooks }; 
+const getSingleBook = async (req: Request, res: Response, next: NextFunction) => {
+    const bookId = req.params.bookId;
+
+    try {
+        const book = await bookModel.findOne({ _id: bookId }).populate("author", "name");
+
+        if (!book) {
+            return next(createHttpError(404, "Book not found"));
+        }
+
+        res.json(book);
+    } catch (err) {
+        return next(createHttpError(500, "Error while getting a book"));
+    }
+};
+ 
+export { addBook, updateBook, listBooks, getSingleBook }; 
