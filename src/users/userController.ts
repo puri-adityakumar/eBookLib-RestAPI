@@ -75,29 +75,31 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
           return next(error);
      }
 
+     let user : User | null;
      try {
-          const user = await userModel.findOne({ email }); 
+          user = await userModel.findOne({ email }); 
 
-     if (!user) {
-          const error = createHttpError(404, 'User not found');
-          return next(error);
-     }
-     const isMatch = await bcrypt.compare(password, user.password);
-     if (!isMatch) {
-          const error = createHttpError(401, 'Invalid credentials');
-          return next(error);
-     }
-
-
-
+          if (!user) {
+               const error = createHttpError(404, 'User not found');
+               return next(error);
+          }
+          const isMatch = await bcrypt.compare(password, user.password);
+          if (!isMatch) {
+               const error = createHttpError(401, 'Invalid credentials');
+               return next(error);
+          }
      } catch (error) {
           return next(createHttpError(500, 'Error while checking user'));  
+     };
+
+     // Token generation JWT
+
+     try {
+          const token = sign({ sub: user._id}, credentials.jwtSecret as string, { expiresIn: '7d', algorithm: "HS256" });
+          res.status(200).json({ accessToken: token });
+     } catch (error) {
+          return next(createHttpError(500, 'Error while generating token'));
      }
      
-  
-
-     
-
-     res.json({ message: 'Login route working fine' });
 };
 export { createUser, loginUser };

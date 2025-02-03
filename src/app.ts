@@ -7,6 +7,7 @@ import express from 'express';
 import userRouter from './users/userRouter';
 // import globalErrorHandler from './middleware/globalErrorHandler';
 
+
 const app = express();
 app.use(express.json());
 
@@ -19,10 +20,10 @@ app.use("/api/users", userRouter);
 
 
 
-
-
-
 // global error handler - TODO: FIX ERROR LATER
 // app.use(globalErrorHandler);
 
-export default app; 
+
+
+
+export default app;
