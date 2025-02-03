@@ -1,7 +1,7 @@
 {
-  "name": "elib",
+  "name": "ebooklib",
   "version": "1.0.0",
-  "description": "This is RestAPI project build in NodeJS, ExpressJS, TypeScript",
+  "description": "This is RestAPI project build in NodeJS, ExpressJS, TypeScript. This project is build for eBook Library.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

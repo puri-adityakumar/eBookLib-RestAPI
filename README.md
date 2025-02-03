@@ -1,3 +1,29 @@
+# eLibrary REST API
+
+## About
+
+eLibrary is a REST API project built using Node.js, Express.js, TypeScript, and MongoDB. This project provides a backend service for managing an eBook library, including user authentication, book management, and file uploads.
+
+### Tech Stack
+
+- ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) Node.js
+- ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) Express.js
+- ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) TypeScript
+- ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) MongoDB
+
+### Features
+
+- User registration and authentication
+- Book management (add, update, delete, list)
+- File uploads for book covers and PDFs
+- JWT-based authentication
+
+---
+
+***
+
+
+
 # Build a RESTAPI using eLibrary system using Nodejs, ExpressJS, Typescript & MongoDB
 
 ## Setup Node Project
@@ -288,6 +314,230 @@ To create user-related components, follow these steps:
 
 By following these steps and best practices, you can create a robust and maintainable user management system in your project.
 
-## Global Error-Handling
-- Todo Later! Need to fix err
+# API Documentation
+
+## Base URL
+```
+http://localhost:5513
+```
+
+## Authentication
+The API uses JWT tokens for authentication. Include the token in the Authorization header:
+```
+Authorization: Bearer <your_jwt_token>
+```
+
+## Endpoints
+
+### Users
+
+#### Register User
+```http
+POST /api/users/register
+```
+
+**Description**: Register a new user.
+
+**Request Body:**
+```json
+{
+  "name": "string",
+  "email": "string",
+  "password": "string"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "User Registered",
+  "accessToken": "string"
+}
+```
+
+#### Login User
+```http
+POST /api/users/login
+```
+
+**Description**: Login an existing user.
+
+**Request Body:**
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "User Logged In",
+  "accessToken": "string"
+}
+```
+
+### Books
+
+#### Add New Book
+```http
+POST /api/books/add
+```
+**Authentication required**
+
+**Description**: Add a new book to the library.
+
+**Request Body (multipart/form-data):**
+```json
+{
+  "title": "string",
+  "author": "string",
+  "description": "string",
+  "genre": "string",
+  "coverImage": "file (image)",
+  "file": "file (PDF)"
+}
+```
+
+**Response:**
+```json
+{
+  "id": "string"
+}
+```
+
+#### Update Book
+```http
+PATCH /api/books/:bookId
+```
+**Authentication required**
+
+**Description**: Update an existing book's details.
+
+**URL Parameters:**
+- `bookId`: String (MongoDB ObjectId)
+
+**Request Body (multipart/form-data):**
+```json
+{
+  "title": "string (optional)",
+  "description": "string (optional)",
+  "genre": "string (optional)",
+  "coverImage": "file (image, optional)",
+  "file": "file (PDF, optional)"
+}
+```
+
+**Response:**
+```json
+{
+  "_id": "string",
+  "title": "string",
+  "description": "string",
+  "author": "string",
+  "genre": "string",
+  "coverImage": "string (URL)",
+  "file": "string (URL)",
+  "uploader": "string (User ID)"
+}
+```
+
+#### List All Books
+```http
+GET /api/books
+```
+
+**Description**: Retrieve a list of all books.
+
+**Query Parameters:**
+- `page`: number (default: 1)
+- `limit`: number (default: 10)
+
+**Response:**
+```json
+{
+  "totalBooks": "number",
+  "totalPages": "number",
+  "currentPage": "number",
+  "books": [{
+    "_id": "string",
+    "title": "string",
+    "description": "string",
+    "author": {
+      "_id": "string",
+      "name": "string"
+    },
+    "genre": "string",
+    "coverImage": "string (URL)",
+    "file": "string (URL)",
+    "uploader": "string (User ID)"
+  }]
+}
+```
+
+#### Get Single Book
+```http
+GET /api/books/:bookId
+```
+
+**Description**: Retrieve details of a single book.
+
+**URL Parameters:**
+- `bookId`: String (MongoDB ObjectId)
+
+**Response:**
+```json
+{
+  "_id": "string",
+  "title": "string",
+  "description": "string",
+  "author": {
+    "_id": "string",
+    "name": "string"
+  },
+  "genre": "string",
+  "coverImage": "string (URL)",
+  "file": "string (URL)",
+  "uploader": "string (User ID)"
+}
+```
+
+#### Delete Book
+```http
+DELETE /api/books/:bookId
+```
+**Authentication required**
+
+**Description**: Delete a book from the library.
+
+**URL Parameters:**
+- `bookId`: String (MongoDB ObjectId)
+
+**Response:**
+```json
+{
+  "message": "Book deleted successfully"
+}
+```
+
+## Error Responses
+
+The API returns the following error responses:
+
+```json
+{
+  "message": "Error message",
+  "errorStack": "Error stack trace (only in development mode)"
+}
+```
+
+Common HTTP Status Codes:
+- `200`: Success
+- `201`: Created
+- `400`: Bad Request
+- `401`: Unauthorized
+- `403`: Forbidden
+- `404`: Not Found
+- `500`: Internal Server Error
 
