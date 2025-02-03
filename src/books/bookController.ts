@@ -137,5 +137,27 @@ const updateBook = async( req: Request, res: Response, next: NextFunction ) => {
 
 };
 
+const listBooks = async (req: Request, res: Response, next: NextFunction) => {
+    // const sleep = await new Promise((resolve) => setTimeout(resolve, 5000));
 
-export { addBook, updateBook }; 
+    try {
+        
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        const skip = (page - 1) * limit;
+
+        const books = await bookModel.find().populate("author", "name").skip(skip).limit(limit);
+        const totalBooks = await bookModel.countDocuments();
+
+        res.json({
+            totalBooks,
+            totalPages: Math.ceil(totalBooks / limit),
+            currentPage: page,
+            books
+        });
+    } catch (err) {
+        return next(createHttpError(500, "Error while getting a book"));
+    }
+};
+
+export { addBook, updateBook, listBooks }; 
