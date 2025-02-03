@@ -5,6 +5,7 @@
 
 import express from 'express';
 import userRouter from './users/userRouter';
+import bookRouter from './books/bookRouter';
 // import globalErrorHandler from './middleware/globalErrorHandler';
 
 
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/api/books", bookRouter);
 
 
 

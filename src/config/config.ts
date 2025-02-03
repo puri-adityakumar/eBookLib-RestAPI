@@ -10,6 +10,9 @@ const _credentials = {
     databaseUrl: process.env.MONGODB_URI,
     env: process.env.NODE_ENV || 'development', // this line sets the default value of the env variable to 'development' if it is not set in the .env file.
     jwtSecret: process.env.JWT_SECRET,
+    cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET
 
 };
 
