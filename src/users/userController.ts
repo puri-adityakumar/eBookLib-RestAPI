@@ -53,7 +53,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
      try {
           const token = sign({ sub: newUser._id}, credentials.jwtSecret as string, { expiresIn: '7d', algorithm: "HS256" });
-          res.status(201).json({ accessToken: token });
+          res.status(201).json({ message: "User Registered", accessToken: token });
      } catch (error) {
           return next(createHttpError(500, 'Error while generating token'));
      }
@@ -96,7 +96,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 
      try {
           const token = sign({ sub: user._id}, credentials.jwtSecret as string, { expiresIn: '7d', algorithm: "HS256" });
-          res.status(200).json({ accessToken: token });
+          res.status(200).json({ message: "User Logged In", accessToken: token });
      } catch (error) {
           return next(createHttpError(500, 'Error while generating token'));
      }

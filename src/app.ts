@@ -6,11 +6,18 @@
 import express from 'express';
 import userRouter from './users/userRouter';
 import bookRouter from './books/bookRouter';
+import cors from 'cors';
 
-// import globalErrorHandler from './middleware/globalErrorHandler';
+import globalErrorHandler from './middleware/globalErrorHandler';
+import { credentials } from './config/config';
 
 
 const app = express();
+app.use(cors(
+    {
+        origin: credentials.clientUrl || 'http://localhost:3000',
+    }
+));
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -25,7 +32,7 @@ app.use("/api/books", bookRouter);
 
 
 // global error handler : Todo - implement this
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 
 

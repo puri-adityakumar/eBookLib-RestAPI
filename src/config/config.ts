@@ -12,7 +12,8 @@ const _credentials = {
     jwtSecret: process.env.JWT_SECRET,
     cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
     cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
-    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
+    clientUrl: process.env.CLIENT_URL
 
 };
 
