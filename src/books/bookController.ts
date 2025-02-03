@@ -4,6 +4,7 @@ import path from 'path';
 import createHttpError from 'http-errors';
 import bookModel from './bookModel';
 import fs from 'node:fs'
+import { AuthRequest } from '../middleware/authenticate';
 
 const addBook = async( req: Request, res: Response, next: NextFunction ) => {
     const { title, author, description, genre, uploader } = req.body;
@@ -35,6 +36,7 @@ const addBook = async( req: Request, res: Response, next: NextFunction ) => {
             }
         );
 
+        const _req = req as AuthRequest;
         const newBook = await bookModel.create({
             title,
             author,
@@ -42,7 +44,7 @@ const addBook = async( req: Request, res: Response, next: NextFunction ) => {
             genre,
             coverImage: uploadResult.secure_url,
             file: bookFileUploadResult.secure_url,
-            uploader: '67a03b96721ae9946a87df49'
+            uploader: _req.userId,
         });
 
         // delete the files from the server
